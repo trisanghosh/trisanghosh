@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Place Order</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --primary-color: #29abe2; /* Bright Cyan */
+    --accent-color: #f9a825;  /* Vivid Yellow */
+    --secondary-color: #546e7a;
+    --background-color: #f5f8fa;
+    --card-background: #ffffff;
+    --border-color: #e0e6ed;
+    --text-color: #263238;
+    --light-text-color: #90a4ae;
+    --success-color: #43a047;
+    --error-color: #e53935;
+    --shadow-light: 0 5px 20px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px;
+    animation: fadeInBackground 0.8s ease-out;
+    overflow-x: hidden;
+  }
+
+  @keyframes fadeInBackground {
+    from { background-color: #eceff1; }
+    to { background-color: var(--background-color); }
+  }
+
+  .container {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #4fc3f7 100%);
+    color: var(--card-background);
+    text-align: center;
+    padding: 50px 30px;
+    font-size: clamp(32px, 6vw, 40px);
+    font-weight: 700;
+    border-radius: 25px;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 40px;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+    animation: headerFadeInDown 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  @keyframes headerFadeInDown {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .header i {
+    font-size: clamp(40px, 7vw, 50px);
+    margin-right: 15px;
+    vertical-align: middle;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+  }
+
+  /* Form Section */
+  .form-section {
+    background-color: var(--card-background);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+    animation: formFadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+    animation-delay: 0.3s;
+  }
+
+  @keyframes formFadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: clamp(26px, 5vw, 32px);
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+  }
+
+  .section-title i {
+    margin-right: 12px;
+    color: var(--primary-color);
+  }
+
+  /* Form Elements */
+  .input-group {
+    position: relative;
+    margin-bottom: 30px;
+    animation: inputFadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .input-group:nth-child(1) { animation-delay: 0.4s; }
+  .input-group:nth-child(2) { animation-delay: 0.5s; }
+  .input-group:nth-child(3) { animation-delay: 0.6s; }
+  .input-group:nth-child(4) { animation-delay: 0.7s; }
+  .input-group:nth-child(5) { animation-delay: 0.8s; }
+  .input-group:nth-child(6) { animation-delay: 0.9s; }
+  .input-group:nth-child(7) { animation-delay: 1.0s; }
+  .input-group:nth-child(8) { animation-delay: 1.1s; }
+
+  @keyframes inputFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .input-group i {
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    color: var(--light-text-color);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 18px 20px 18px 60px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    font-size: 17px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Icon disappears when input has value */
+  input:focus + i, textarea:focus + i, select:focus + i {
+    color: var(--primary-color);
+    transform: translateY(-50%) scale(1.1);
+  }
+  input:not(:placeholder-shown) + i, textarea:not(:placeholder-shown) + i {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-20px);
+  }
+  input:not(:placeholder-shown), textarea:not(:placeholder-shown) {
+      padding-left: 25px;
+  }
+  /* Error state CSS */
+  .input-group.error input,
+  .input-group.error textarea,
+  .input-group.error select {
+    border-color: var(--error-color);
+    animation: shake 0.5s;
+  }
+  .input-group.error i {
+    color: var(--error-color);
+  }
+  .input-group .error-message {
+    color: var(--error-color);
+    font-size: 14px;
+    margin-top: 5px;
+    padding-left: 10px;
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  .input-group.error .error-message {
+    display: block;
+  }
+
+  @keyframes shake {
+    10%, 90% { transform: translateX(-1px); }
+    20%, 80% { transform: translateX(2px); }
+    30%, 50%, 70% { transform: translateX(-4px); }
+    40%, 60% { transform: translateX(4px); }
+  }
+
+  @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(41, 171, 226, 0.3);
+    background-color: var(--card-background);
+  }
+
+  textarea {
+    border-radius: 15px;
+    min-height: 120px;
+    padding: 20px;
+    padding-left: 60px;
+  }
+  
+  textarea:not(:placeholder-shown) {
+      padding-left: 25px;
+  }
+
+  select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23546e7a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 25px center;
+  }
+
+  /* Quantity Row */
+  .quantity-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    animation: quantityFadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-delay: 1.2s;
+  }
+  .quantity-row.error {
+    animation: shake 0.5s;
+  }
+  .quantity-row.error .error-message {
+    display: block;
+  }
+
+
+  @keyframes quantityFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .quantity-row label {
+    font-weight: 600;
+    color: var(--secondary-color);
+    white-space: nowrap;
+    font-size: 18px;
+  }
+  
+  .quantity-row.error label {
+    color: var(--error-color);
+  }
+
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+  .quantity-row.error .quantity-control {
+    border-color: var(--error-color);
+  }
+
+  .quantity-control button {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .quantity-control button:hover {
+    background-color: var(--primary-color);
+    color: var(--card-background);
+  }
+
+  .quantity-control input {
+    flex-grow: 1;
+    text-align: center;
+    -moz-appearance: textfield;
+    margin: 0;
+    padding: 15px;
+    font-size: 17px;
+    border: none;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    box-shadow: none;
+  }
+
+  .quantity-control input::-webkit-outer-spin-button,
+  .quantity-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .quantity-control input:focus {
+    box-shadow: none;
+  }
+  
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    animation: buttonsFadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-delay: 1.3s;
+  }
+
+  @keyframes buttonsFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 180px;
+    padding: 20px 25px;
+    border: none;
+    border-radius: 15px;
+    color: var(--card-background);
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--shadow-light);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: left 0.4s ease-in-out;
+    z-index: -1;
+  }
+
+  .btn:hover::before {
+    left: 0;
+  }
+
+  .btn:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .btn-home {
+    background: linear-gradient(135deg, var(--success-color) 0%, #81c784 100%);
+  }
+
+  .btn-order {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #fbc02d 100%);
+  }
+
+  /* Info box */
+  .info-box {
+    background-color: #e3f2fd;
+    color: var(--primary-color);
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 16px;
+    margin-top: 30px;
+    border: 1px solid #b3e5fc;
+    display: flex;
+    align-items: center;
+    line-height: 1.5;
+    box-shadow: var(--shadow-light);
+    animation: infoBoxFadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-delay: 1.4s;
+  }
+
+  @keyframes infoBoxFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .info-box i {
+    margin-right: 15px;
+    font-size: 24px;
+    color: var(--primary-color);
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* Media Queries for responsiveness */
+  @media (max-width: 768px) {
+    body {
+      padding: 20px 10px;
+    }
+    .header {
+      padding: 40px 20px;
+      font-size: clamp(28px, 6vw, 36px);
+    }
+    .header i {
+      font-size: clamp(36px, 7vw, 45px);
+    }
+    .form-section {
+      padding: 30px 20px;
+    }
+    .section-title {
+      font-size: clamp(24px, 5vw, 28px);
+    }
+    .section-title::after {
+      width: 50px;
+    }
+    .input-group {
+      margin-bottom: 25px;
+    }
+    input, textarea, select {
+      font-size: 16px;
+      padding: 16px 20px 16px 55px;
+    }
+    .input-group i {
+      left: 20px;
+      font-size: 16px;
+    }
+    input:focus, textarea:focus, select:focus {
+      padding-left: 20px;
+    }
+    .quantity-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .quantity-row label {
+      font-size: 16px;
+    }
+    .quantity-control {
+      width: 100%;
+    }
+    .quantity-control input {
+      font-size: 16px;
+    }
+    .btn-row {
+      flex-direction: column;
+      gap: 15px;
+    }
+    .btn {
+      width: 100%;
+      min-width: unset;
+      font-size: 16px;
+      padding: 18px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <i class="fas fa-shipping-fast"></i> Place Order
+  </div>
+
+  <div class="form-section">
+    <div class="section-title">
+      <i class="fas fa-clipboard-list"></i> Your Details
+    </div>
+
+    <form id="orderForm">
+      <div class="input-group">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <i class="fas fa-user"></i>
+        <span class="error-message">Please enter your full name.</span>
+      </div>
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Email Address" required>
+        <i class="fas fa-envelope"></i>
+        <span class="error-message">Please enter a valid email address.</span>
+      </div>
+      <div class="input-group">
+        <input type="tel" id="phone" placeholder="Mobile Number" required>
+        <i class="fas fa-phone"></i>
+        <span class="error-message">Please enter a valid mobile number.</span>
+      </div>
+      <div class="input-group">
+        <textarea id="address" placeholder="Full Address" required></textarea>
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="error-message">Please enter your full address.</span>
+      </div>
+      <div class="input-group">
+        <input type="text" id="city" placeholder="City" required>
+        <i class="fas fa-city"></i>
+        <span class="error-message">Please enter your city.</span>
+      </div>
+      <div class="input-group">
+        <input type="text" id="state" placeholder="State" required>
+        <i class="fas fa-flag"></i>
+        <span class="error-message">Please enter your state.</span>
+      </div>
+      <div class="input-group">
+        <input type="number" id="pincode" placeholder="Pincode" required>
+        <i class="fas fa-mail-bulk"></i>
+        <span class="error-message">Please enter a valid pincode.</span>
+      </div>
+      <div class="input-group">
+        <textarea id="product" placeholder="Product Name" required></textarea>
+        <i class="fas fa-cube"></i>
+        <span class="error-message">Please enter product details.</span>
+      </div>
+      
+      <div class="quantity-row">
+        <label for="quantity">Quantity:</label>
+        <div class="quantity-control">
+          <button type="button" id="quantity-minus">-</button>
+          <input type="number" id="quantity" value="1" min="1" required>
+          <button type="button" id="quantity-plus">+</button>
+        </div>
+        <span class="error-message">Item Quantity doubles with Qty (min 1).
+</span>
+      </div>
+
+      <div class="input-group">
+        <select id="payment" required>
+          <option value="" disabled selected>Select Payment Method</option>
+          <option value="Cash on Delivery">Cash on Delivery</option>
+          <option value="UPI">UPI</option>
+          <option value="Credit/Debit Card">Credit/Debit Card</option>
+          <option value="Net Banking">Net Banking</option>
+        </select>
+        <i class="fas fa-credit-card"></i>
+        <span class="error-message">Please select a payment method.</span>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-home" onclick="window.location.href='index.html'">
+          <i class="fas fa-home"></i> Home
+        </button>
+        <button type="submit" class="btn btn-order">
+          <i class="fas fa-paper-plane"></i> Place Order
+        </button>
+      </div>
+      
+      <div class="info-box">
+        <i class="fas fa-lightbulb"></i> We offer fast delivery, 24/7 support, and secure checkout. Your order is just a click away!
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- EmailJS SDK include -->
+<!-- EmailJS SDK include -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  // Initialize EmailJS
+  (function(){
+      emailjs.init("Q7ZvMa9JAJRLxDLVx"); 
+  })();
+
+  // Quantity Controls
+  const quantityInput = document.getElementById('quantity');
+  document.getElementById('quantity-plus').onclick = () => {
+    quantityInput.value = Math.max(1, parseInt(quantityInput.value) +1);
+  };
+  document.getElementById('quantity-minus').onclick = () => {
+    quantityInput.value = Math.max(1, parseInt(quantityInput.value) -1);
+  };
+
+  // Home Button
+  document.querySelector('.btn-home').addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
+
+  // Price List
+  const priceList = {
+    "Milk": 50,
+    "Misty doi": 85,
+    "Poneer": 400,
+    "Rosogolla": 6,
+    "Sandesh": 370,
+    "Dry sweet": 15,
+    "Tok doi": 60,
+    "Pantuya": 6,
+    "Load chum chum": 12,
+    "Laddu": 6
+  };
+
+  // ✅ Autofill Product Name from URL
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productName = urlParams.get("name");
+
+    if (productName) {
+      const productInput = document.getElementById("product");
+      if (productInput) {
+        productInput.value = decodeURIComponent(productName);
+      }
+    }
+  });
+
+  // Form Validation
+  function validateForm() {
+    let isValid = true;
+    const requiredFields = ['name', 'email', 'phone', 'address', 'city', 'state', 'pincode', 'product', 'payment'];
+    requiredFields.forEach(fieldId => {
+      const input = document.getElementById(fieldId);
+      const parentGroup = input.closest('.input-group') || input.closest('.quantity-row');
+      if (!input.value.trim() || (input.type === 'email' && !input.checkValidity())) {
+        parentGroup.classList.add('error');
+        isValid = false;
+      } else {
+        parentGroup.classList.remove('error');
+      }
+    });
+
+    if (parseInt(quantityInput.value) < 1) {
+      quantityInput.closest('.quantity-row').classList.add('error');
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  // Submit Handler
+  document.getElementById('orderForm').onsubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      const product = document.getElementById('product').value.trim();
+      const qty = parseInt(quantityInput.value) || 1;
+      const unitPrice = priceList[product] || 50;
+
+      // Calculation (only for email, not for localStorage)
+      const subtotal = qty * unitPrice;
+      const discount = subtotal * 0.05;
+      const delivery = 6;
+      const finalTotal = subtotal - discount + delivery;
+
+      // Order data (localStorage friendly)
+      const orderData = {
+        name: document.getElementById('name').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        address: `${document.getElementById('address').value.trim()}, ${document.getElementById('city').value.trim()}, ${document.getElementById('state').value.trim()} - ${document.getElementById('pincode').value.trim()}`,
+        product: product,
+        quantity: qty,
+        payment: document.getElementById('payment').value.trim(),
+        date: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+      };
+
+      // Extended data (for EmailJS only)
+      const emailData = {
+        ...orderData,
+        subtotal: subtotal,
+        discount: discount.toFixed(2),
+        delivery: delivery,
+        total: finalTotal.toFixed(2)
+      };
+
+      // Send Email
+      emailjs.send("service_zmcm46k", "template_9ypw2yu", emailData)
+      .then((response) => {
+        console.log("✅ Email Sent!", response.status, response.text);
+
+        // Save only basic data to localStorage (no discount, total, delivery)
+        localStorage.setItem("latestOrder", JSON.stringify(orderData));
+
+        window.location.href = "o_succesful.html";
+      }, (error) => {
+        console.error("❌ Email Error:", error);
+        alert("Email send failed! Please try again.");
+      });
+    }
+  };
+</script>
+
+</body>
+</html>

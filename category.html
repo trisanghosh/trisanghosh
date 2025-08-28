@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Filter by Price - TrisanShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #f0f4f8, #dceefb);
+      color: #333;
+    }h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #232f3f;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #232f3f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #e3b11b;
+  color: #000;
+}
+
+.price-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.price-btn {
+  padding: 12px 24px;
+  background: #232f3f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.price-btn:hover {
+  background: #e3b11b;
+  color: #000;
+}
+
+.price-btn.active {
+  background-color: #0d6efd;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.product-list.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.product-card h3 {
+  font-size: 20px;
+  margin: 10px 0 5px;
+}
+
+.product-card .price {
+  font-size: 17px;
+  font-weight: bold;
+  color: #444;
+}
+
+.buy-btn {
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 12px;
+}
+
+.buy-btn i {
+  margin-right: 6px;
+}
+
+.buy-btn:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+#no-products {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 40px;
+  color: #999;
+  display: none;
+}
+
+  </style>
+</head>
+<body><a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
+
+<h2><i class="fas fa-tags"></i> Filter Products by Price</h2><div class="price-buttons">
+  <button class="price-btn active" onclick="filterByPrice(0, 10, this)">5 - 10</button>
+  <button class="price-btn" onclick="filterByPrice(10, 15, this)">10 - 15</button>
+  <button class="price-btn" onclick="filterByPrice(15, 20, this)">15 - 20</button>
+  <button class="price-btn" onclick="filterByPrice(20, 100, this)">20 - 100</button>
+  <button class="price-btn" onclick="filterByPrice(100, 500, this)">100 - 500</button>
+</div><div class="product-list show" id="productList"></div>
+<div id="no-products">No products available in this range.</div><script>
+  const allProducts = [
+    { name: "Misty Doi", price: 85, image: "doi.jpg", desc: "Fresh and creamy sweet yogurt" },
+    { name: "Puneer", price: 400, image: "pneer.jpg", desc: "Soft and fresh paneer blocks" },
+    { name: "Milk", price: 50, image: "milk.jpg", desc: "Fresh milk in eco-pack" },
+    { name: "Rosogolla", price: 6, image: "rosogolla.png", desc: "Soft Bengali rasgulla sweet" },
+    { name: "Kaju katli", price: 12, image: "kaju.png", desc: "Soft Bengali rasgulla sweet" },
+    { name: "Pantua", price: 6, image: "Pantua.jpg", desc: "Soft Bengali rasgulla sweet" },
+    { name: "laddu", price: 6, image: "Load.jpg", desc: "Soft Bengali rasgulla sweet" },
+    { name: "Load chum chum", price: 12, image: "CHam_cham4.jpg", desc: "Soft Bengali rasgulla sweet" },
+    { name: "tok doi", price: 65, image: "tokkdoi.jpg", desc: "Soft Bengali rasgulla sweet" }
+  ];
+
+  function filterByPrice(min, max, btn) {
+    const list = document.getElementById("productList");
+    list.innerHTML = "";
+    let found = 0;
+
+    allProducts.forEach(product => {
+      if (product.price >= min && product.price <= max) {
+        found++;
+        const card = document.createElement("div");
+        card.className = "product-card";
+        const url = `p_buy.html?name=${encodeURIComponent(product.name)}&price=₹${product.price}&image=${encodeURIComponent(product.image)}&desc=${encodeURIComponent(product.desc)}`;
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p class="price">₹${product.price}</p>
+          <button class="buy-btn" onclick="window.location.href='${url}'"><i class='fas fa-shopping-cart'></i> Buy</button>
+        `;
+        list.appendChild(card);
+      }
+    });
+
+    document.getElementById("no-products").style.display = found === 0 ? "block" : "none";
+    list.classList.add("show");
+
+    document.querySelectorAll(".price-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  }
+
+  window.onload = function () {
+    const firstBtn = document.querySelector(".price-btn");
+    if (firstBtn) firstBtn.click();
+  }
+</script></body>
+</html>

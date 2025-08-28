@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order in Advance</title>
+  <link rel="stylesheet" href="oia_style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="navbar">
+    <h1><i class="fas fa-shopping-cart"></i> Order In Advance</h1>
+  </header>
+
+  <main class="form-wrapper">
+    <form class="order-form" autocomplete="off">
+      <div class="form-title">
+        <h2><i class="fas fa-clipboard-list"></i> Fill Your Order</h2>
+      </div>
+
+      <div class="input-field animate">
+        <i class="fas fa-box icon"></i>
+        <input type="text" required />
+        <label>Item Name</label>
+      </div>
+
+      <div class="input-field animate delay-1">
+        <i class="fas fa-sort-numeric-up icon"></i>
+        <input type="number" required min="1"/>
+        <label>Item Quantity</label>
+      </div>
+
+      <div class="input-field animate delay-2">
+        <i class="fas fa-user icon"></i>
+        <input type="text" required />
+        <label>Your Name</label>
+      </div>
+
+      <div class="input-field animate delay-3">
+        <i class="fas fa-map-marker-alt icon"></i>
+        <input type="text" required />
+        <label>Your Address</label>
+      </div>
+
+      <div class="input-field animate delay-4">
+        <i class="fas fa-phone icon"></i>
+        <input type="tel" required />
+        <label>Mobile Number</label>
+      </div>
+
+      <div class="btn-group">
+        <a href="index.html" class="btn glass return">
+          <i class="fas fa-arrow-left"></i> Home
+        </a>
+        <button type="submit" class="btn glass order">
+          <i class="fas fa-paper-plane"></i> Place Order
+        </button>
+      </div>
+
+      <div class="disclaimer animate delay-5">
+        💡 <span>Fast delivery, 24/7 support, and secure checkout. Your order is just a click away!</span>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

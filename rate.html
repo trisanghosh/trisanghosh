@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smooth Star Rating</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg,#e0f7fa,#e1f5fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .rating-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .rating-box h2 {
+      font-size: 26px;
+      color: #333;
+      margin-bottom: 10px;
+      animation: bounceIn 1s ease;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .star {
+      font-size: 48px;
+      color: #ccc;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .star.active {
+      color: #ffb400;
+      transform: scale(1.3) rotate(-5deg);
+      animation: pulse 0.4s ease;
+    }
+
+    .star:hover {
+      transform: scale(1.4) rotate(-8deg);
+    }
+
+    .output {
+      font-size: 20px;
+      font-weight: 600;
+      color: #444;
+      min-height: 28px;
+      margin-top: 6px;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Submit Button Style */
+    .btn.submit {
+      background: #00aaff;
+      color: #fff;
+    }
+    .btn.submit:hover {
+      background: #0088cc;
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0,136,204,0.4);
+    }
+
+    /* Back Button Style */
+    .btn.back {
+      background: #ff4d4d;
+      color: #fff;
+    }
+    .btn.back:hover {
+      background: #e63939;
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(230,57,57,0.4);
+    }
+
+    .btn i {
+      margin-right: 6px;
+    }
+
+    .thank-you {
+      display: none;
+      margin-top: 18px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #009688;
+      animation: fadeIn 0.6s ease;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1.3); }
+    }
+
+    /* Mobile Friendly */
+    @media (max-width: 480px) {
+      .star { font-size: 42px; }
+      .rating-box { padding: 22px; }
+      .btn { font-size: 14px; padding: 10px 16px; }
+      .rating-box h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="rating-box">
+    <h2>Rate this website</h2>
+    <div class="stars" id="stars">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <div class="output" id="output">Tap a star to rate</div>
+    
+    <!-- Buttons together -->
+    <div class="btn-group">
+      <button class="btn submit" id="submitBtn"><i class="fa-solid fa-paper-plane"></i>Submit</button>
+      <button class="btn back" id="backBtn"><i class="fa-solid fa-arrow-left"></i>Back</button>
+    </div>
+
+    <div class="thank-you" id="thankYou">✅ Thank you for your rating!</div>
+  </div>
+
+  <script>
+    const stars = document.querySelectorAll(".star");
+    const output = document.getElementById("output");
+    const submitBtn = document.getElementById("submitBtn");
+    const backBtn = document.getElementById("backBtn");
+    const thankYou = document.getElementById("thankYou");
+
+    let rating = 0;
+
+    stars.forEach((star, idx) => {
+      star.addEventListener("click", () => {
+        rating = idx + 1;
+        stars.forEach(s => s.classList.remove("active"));
+        for (let i = 0; i <= idx; i++) {
+          stars[i].classList.add("active");
+        }
+        output.style.opacity = 0;
+        setTimeout(() => {
+          output.textContent = `You rated ${rating} / 5 ⭐`;
+          output.style.opacity = 1;
+        }, 200);
+        thankYou.style.display = "none";
+      });
+    });
+
+    submitBtn.addEventListener("click", () => {
+      if (rating === 0) {
+        alert("Please select a rating first!");
+        return;
+      }
+      thankYou.style.display = "block";
+    });
+
+    backBtn.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

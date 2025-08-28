@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trisan Shop Website</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header/Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="top-bar">
+        <div class="logo">
+          <p>Trisan<span style="color:#EAC529;">Shop</span></p>
+        </div>
+        <a href="cart.html">
+          <button class="cart-btn">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </a>
+      </div>
+
+      <!-- Search -->
+      <div class="search">
+        <input type="text" placeholder="Search TrisanShop..." class="search_input">
+        <img src="magnify.jpg" class="my-image" alt="Search">
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="buttom-bar">
+        <div class="first">
+          <a href="category.html">Category</a>
+          <a href="item_details.html">Order Details</a>
+        </div>
+        <div class="sec">
+          <a href="oia.html">Order in Advance</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div>You will get everything you want here</div>
+  </div>
+
+  <!-- Products -->
+  <div class="product-container">
+    <div class="product-card fade-in" data-name="Misty doi">
+      <h2>Misty Doi</h2>
+      <img src="doi.jpg" alt="Misty doi">
+      <p class="price">₹85 (250G)</p>
+      <a href="p_buy.html?name=Misty doi&price=₹85%20(250g)&image=doi.jpg&desc=Fresh homemade misty doi.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Paneer">
+      <h2>Paneer</h2>
+      <img src="pneer.jpg" alt="Paneer">
+      <p class="price">₹400 (1Kg)</p>
+      <a href="p_buy.html?name=Paneer&price=₹400%20(1kg)&image=pneer.jpg&desc=Fresh homemade paneer for you.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Milk">
+      <h2>Milk</h2>
+      <img src="milk.jpg" alt="Milk">
+      <p class="price">₹50 (1Kg)</p>
+      <a href="p_buy.html?name=Milk&price=₹50%20(1kg)&image=milk.jpg&desc=Fresh milk for you.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Rosogolla">
+      <h2>Rosogolla</h2>
+      <img src="rosogolla.png" alt="Rosogolla">
+      <p class="price">₹6 (1 Piece)</p>
+      <a href="p_buy.html?name=Rosogolla&price=₹6%20(1 piece)&image=rosogolla.png&desc=Fresh homemade rosogolla for you.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Sandesh">
+      <h2>Sandesh</h2>
+      <img src="sandesh-sondesh.jpg" alt="Sandesh">
+      <p class="price">₹370 (1Kg)</p>
+      <a href="p_buy.html?name=Sandesh&price=₹370%20(1kg)&image=sandesh-sondesh.jpg&desc=Fresh sandesh for you.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Tok doi">
+      <h2>Tok Doi</h2>
+      <img src="tokkdoi.jpg" alt="Tok doi">
+      <p class="price">₹60 (1Kg)</p>
+      <a href="p_buy.html?name=Tok doi&price=₹60%20(1kg)&image=tokkdoi.jpg&desc=Fresh homemade tok doi for you.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Pantua">
+      <h2>Pantua</h2>
+      <img src="Pantua.jpg" alt="Pantua">
+      <p class="price">₹6 (1 Piece)</p>
+      <a href="p_buy.html?name=Pantua&price=₹6%20(1 Piece)&image=Pantua.jpg&desc=Best pantua for you.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Dry sweet">
+      <h2>Dry Sweet</h2>
+      <img src="kaju.png" alt="Kaju">
+      <p class="price">₹15 (1 Piece)</p>
+      <a href="p_buy.html?name=Dry sweet&price=₹15%20(1 Piece)&image=kaju.png&desc=Best kajus for you">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Lord Chum Chum">
+      <h2>Lord Chum Chum</h2>
+      <img src="CHam_cham4.jpg" alt="Lord chum chum">
+      <p class="price">₹12 (1 Piece)</p>
+      <a href="p_buy.html?name=Lord Chum Chum&price=₹12%20(1 Piece)&image=CHam_cham4.jpg&desc=Fresh chum chum for you.">Buy Now</a>
+    </div>
+
+    <div class="product-card fade-in" data-name="Laddu">
+      <h2>Laddu</h2>
+      <img src="Load.jpg" alt="Laddu">
+      <p class="price">₹6 (1 Piece)</p>
+      <a href="p_buy.html?name=Laddu&price=₹6%20(1 Piece)&image=Load.jpg&desc=Fresh laddu for you.">Buy Now</a>
+    </div>
+  </div>
+
+  <!-- See More -->
+  <div style="text-align: center; margin-top: 20px;">
+    <button id="see-more-btn">See More</button>
+  </div>
+
+  <script src="product_view.js"></script>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Get to Know Us</h4>
+        <a href="about.html">About Us</a>
+        <a href="creers.html">Careers</a>
+        <a href="release.html">Press Releases</a>
+        <a href="rate.html">Rate this website</a>
+        <a href="help.html">Help</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Connect with Us</h4>
+        <a href="https://www.facebook.com/share/16pXNMaRFw/">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="https://www.youtube.com/@Trishan_2009">Youtube</a>
+        <a href="feedback.html">Feedback</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-logo">Trisan<span style="color:#EAC529;">Shop</span></div>
+      <div style="text-align:center">&copy; 2025 TrisanShop. All rights reserved. Are you happy.</div>
+    </div>
+  </footer>
+</body>
+</html>

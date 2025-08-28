@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Careers - TrisanShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #e0f7fa, #c8e6c9, #b2dfdb);
+      background-size: 400% 400%;
+      animation: moveBG 12s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    @keyframes moveBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .careers-container {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      padding: 40px 35px;
+      max-width: 850px;
+      width: 90%;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      animation: fadeIn 1.2s ease, slideUp 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); }
+      to { transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.7rem;
+      color: #00695c;
+      margin-bottom: 25px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #00897b;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .back-button {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      padding: 12px 28px;
+      font-size: 1rem;
+      background: linear-gradient(to right, #26a69a, #00796b);
+      color: #fff;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #004d40, #00695c);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .careers-container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="careers-container">
+    <h1>Careers at TrisanShop</h1>
+    <div class="subtitle">Join our journey — grow with us.</div>
+
+    <p>
+      At <strong>TrisanShop</strong>, we're not just building a marketplace — we're building a movement.<br><br>
+      If you're passionate about technology, design, customer experience, or logistics, there's a place here for you. We value creativity, responsibility, and teamwork.<br><br>
+      Explore opportunities to shape the future of e-commerce — from product development to customer service and beyond.
+    </p>
+
+    <a href="index.html" class="back-button">← Back to Home</a>
+  </div>
+
+</body>
+</html>

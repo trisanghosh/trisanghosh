@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details - TrisanShop</title>
+  <link rel="stylesheet" href="item_buy.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Advanced CSS Animations */
+    
+    /* Fade and scale in the main container */
+    .container {
+      animation: fade-in 0.8s ease-out forwards;
+      transform: scale(0.9);
+      opacity: 0;
+    }
+
+    /* Slide-in from the left for info section */
+    .info-section {
+      animation: slide-in-left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      opacity: 0;
+      animation-delay: 0.4s;
+    }
+    
+    /* Slide-in from the right for image section */
+    .image-section {
+      animation: slide-in-right 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      opacity: 0;
+      animation-delay: 0.2s;
+    }
+
+    /* Animate the product image with a slight pulse and shadow */
+    .product-image {
+      animation: fade-in-up 0.8s ease-out forwards, pulse-shadow 2s infinite ease-in-out alternate;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    /* Animate the delivery and action buttons */
+    .delivery, .action-buttons {
+      animation: fade-in 0.8s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.6s;
+    }
+
+    /* Animate the details list items */
+    .details li {
+      animation: fade-in-up 0.5s ease-out forwards;
+      opacity: 0;
+    }
+    .details li:nth-child(1) { animation-delay: 0.8s; }
+    .details li:nth-child(2) { animation-delay: 0.9s; }
+    .details li:nth-child(3) { animation-delay: 1.0s; }
+    .details li:nth-child(4) { animation-delay: 1.1s; }
+    .details li:nth-child(5) { animation-delay: 1.2s; }
+    .details li:nth-child(6) { animation-delay: 1.3s; }
+    .details li:nth-child(7) { animation-delay: 1.4s; }
+
+    /* Keyframe Definitions */
+    @keyframes fade-in {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes slide-in-left {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slide-in-right {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse-shadow {
+      0% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      100% {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="image-section">
+      </div>
+    
+    <div class="info-section">
+      <h1 id="product-name">Product Name</h1>
+      <div class="price" id="product-price">₹0</div>
+      <p class="desc" id="product-description">
+        Description
+      </p>
+
+      <div class="delivery">
+        <span id="delivery-time">Delivery in <strong>30 to 40 minutes</strong></span>
+        <div class="free-delivery">Free Express Delivery</div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn add-to-cart">
+          <i class="fas fa-shopping-cart"></i> Add to Cart
+        </button>
+        <a href="oder.html" id="buy-now-link" data-product-name="Product Name">
+          <button class="btn buy-now">
+            <i class="fas fa-bolt"></i> Buy Now
+          </button>
+        </a>
+      </div>
+
+      <ul class="details">
+        <li><span class="label">Brand:</span> TrisanShop</li>
+        <li><span class="label">Seller:</span> Trisan Retailers</li>
+        <li><span class="label">Delivery:</span> 30 to 40 minutes</li>
+        <li><span class="label">Availability:</span> In Stock</li>
+        <li><span class="label">Category:</span> Sweet</li>
+        <li><span class="label">SKU:</span> PMD-101</li>
+        <li><span class="label">Rating:</span> ⭐⭐⭐⭐☆ (4.5/5)</li>
+      </ul>
+      <a href="index.html" class="back">← Back to Home</a>
+    </div>
+
+  </div>
+
+  <script src="buy_system.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // URL से डेटा लेना
+      const urlParams = new URLSearchParams(window.location.search);
+      const productName = urlParams.get('name');
+      const productPrice = urlParams.get('price');
+      const productImage = urlParams.get('image');
+      const productDesc = urlParams.get('desc');
+
+      // Name सेट करना
+      if (productName) {
+        document.getElementById('product-name').textContent = decodeURIComponent(productName);
+      }
+
+      // Price सेट करना
+      if (productPrice) {
+        document.getElementById('product-price').textContent = `${productPrice}`;
+      }
+
+      // Description सेट करना
+      if (productDesc) {
+        document.getElementById('product-description').textContent = decodeURIComponent(productDesc);
+      }
+      
+      // Image सेट करना और एनीमेशन क्लास जोड़ना
+      if (productImage) {
+        const imageSection = document.querySelector('.image-section');
+        const img = document.createElement('img');
+        img.src = productImage;
+        img.alt = productName;
+        img.classList.add('product-image'); // Add animation class
+        imageSection.appendChild(img);
+      }
+
+      // Buy Now बटन लिंक अपडेट करना
+      const buyNowLink = document.getElementById('buy-now-link');
+      if (buyNowLink && productName) {
+        const encodedProductName = encodeURIComponent(productName);
+        buyNowLink.href = `oder.html?name=${encodedProductName}&price=${productPrice}`;
+      }
+    });
+    // Add to Cart বোতামের জন্য ইভেন্ট
+const addToCartBtn = document.querySelector('.add-to-cart');
+addToCartBtn.addEventListener('click', () => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const product = {
+    name: document.getElementById('product-name').textContent,
+    price: document.getElementById('product-price').textContent.replace("₹","")
+  };
+  cart.push(product);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  window.location.href = "cart.html"; // কার্ট পেজে পাঠানো
+});
+  </script>
+</body>
+</html>

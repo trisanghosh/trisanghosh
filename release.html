@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Press Release - TrisanShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #ffebee, #fce4ec, #f3e5f5);
+      background-size: 400% 400%;
+      animation: bgFlow 12s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    @keyframes bgFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .press-container {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+      padding: 40px 35px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 900px;
+      width: 90%;
+      animation: fadeIn 1.5s ease, slideUp 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); }
+      to { transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.7rem;
+      color: #880e4f;
+      margin-bottom: 25px;
+    }
+
+    .date {
+      font-size: 1rem;
+      color: #ad1457;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .back-button {
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      padding: 12px 28px;
+      font-size: 1rem;
+      background: linear-gradient(to right, #ec407a, #d81b60);
+      color: #fff;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #c2185b, #ad1457);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .press-container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="press-container">
+    <h1>TrisanShop Press Release</h1>
+    <div class="date">August 2025</div>
+
+    <p>
+      TrisanShop is proud to announce the launch of its all-new shopping experience — faster, smarter, and more delightful than ever. <br><br>
+      With an upgraded design, smoother interface, and personalized recommendations, TrisanShop continues to lead the way in e-commerce innovation.<br><br>
+      Stay tuned for upcoming features, mobile app launch, and amazing festival offers starting this fall.
+    </p>
+
+    <a href="index.html" class="back-button">← Back to Home</a>
+  </div>
+
+</body>
+</html>
